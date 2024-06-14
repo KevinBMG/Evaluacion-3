@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Libros</title>
+</head>
+<body class="container mt-5">
+    <div class="alert alert-info display-1 text-center">LISTADO DE LIBROS</div>
+
+    {% if libros %}
+
+    <table class="table table-striped table-inverse table-responsive">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Título del Libro</th>
+                <th>Género</th>
+                <th>Fecha de Publicación</th>
+                <th>Portada</th>
+                <th>Autor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+            <tr>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.genero }}</td>
+                <td>{{ libro.fechaPubli }}</td>
+                <td>{{ libro.autor}}</td>
+                <td>{{ libro.fechaPubli }}</td>
+                
+                    {% if libro.portada %}
+                        <img src="{{ libro.portada.url }}" alt="Portada del libro {{ libro.titulo }}" style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                        No hay imagen disponible
+                    {% endif %}
+                </td>
+    
+                
+        
+                <td>
+                    <a href="{% url 'eliminar_libro' libro.id %}" class="btn btn-danger me-2">Eliminar</a>
+                    <a href="{% url 'actualizar_libro' libro.id %}" class="btn btn-primary">Actualizar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+
+    <div class="alert alert-primary" role="alert">
+        <strong>No se encuentran libros en el sistema</strong>
+    </div>
+    {% endif %}
+
+    <a href="../" class="btn btn-danger">VOLVER</a>
+</body>
+</html>
+
